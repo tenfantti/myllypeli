@@ -1,0 +1,83 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GKOHarkka"
+        xmlns:Pelialue="clr-namespace:Pelialue;assembly=Pelialue" x:Class="GKOHarkka.MainWindow"
+        xmlns:c="clr-namespace:GKOHarkka"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="750">
+    <Window.Resources>
+        <RoutedUICommand x:Key="AddPieceCommand" Text="Add Piece" />
+        <RoutedUICommand x:Key="RemovePieceCommand" Text="Remove Piece" />
+        <RoutedUICommand x:Key="MovePieceCommand" Text="Move Piece" />
+        <RoutedUICommand x:Key="OpenAboutCommand" Text="Show About" />
+        <RoutedUICommand x:Key="OpenSiteCommand" Text="Show Site" />
+        <RoutedUICommand x:Key="OpenSettingsCommand" Text="Show Settings" />
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="New" CanExecute="CanStartNewGame" Executed="NewGame" />
+        <CommandBinding Command="Print" CanExecute="CanExecutePrint" Executed="Print" />
+        <CommandBinding Command="{StaticResource MovePieceCommand}" CanExecute="CanExecuteMove" Executed="MovePiece" />
+        <CommandBinding Command="Open" CanExecute="CanExecute" Executed="OpenSettings" />
+        <CommandBinding Command="{StaticResource OpenAboutCommand}" CanExecute="CanExecute" Executed="OpenAboutDialog" />
+        <CommandBinding Command="{StaticResource OpenSiteCommand}" CanExecute="CanExecute" Executed="OpenWebsite" />
+        <CommandBinding Command="{StaticResource AddPieceCommand}" CanExecute="CanExecuteAdd" Executed="AddPiece" />
+        <CommandBinding Command="{StaticResource RemovePieceCommand}" CanExecute="CanExecuteRemove" Executed="RemovePiece" />
+        <CommandBinding Command="{StaticResource OpenSettingsCommand}" CanExecute="CanExecute" Executed="OpenSettings" />
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Modifiers="Control"
+                    Key="D"
+                    Command="{StaticResource OpenAboutCommand}" />
+        <KeyBinding Modifiers="Control"
+                    Key="W"
+                    Command="{StaticResource OpenSiteCommand}" />
+        <KeyBinding Modifiers="Control"
+                    Key="A"
+                    Command="{StaticResource AddPieceCommand}" />
+        <KeyBinding Modifiers="Control"
+                    Key="Z"
+                    Command="{StaticResource RemovePieceCommand}" />
+        <KeyBinding Modifiers="Control"
+                    Key="S"
+                    Command="{StaticResource OpenSettingsCommand}" />
+    </Window.InputBindings>
+    <Grid>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                  <MenuItem Header="File">
+                  <MenuItem Header="New Game"  Command="New" InputGestureText="Ctrl+N"/>
+                  <MenuItem Command="Print" InputGestureText="Ctrl+P"/>
+                </MenuItem>
+                <MenuItem Header="Game">
+                    <MenuItem Header="Add Piece" Command="{StaticResource AddPieceCommand}" InputGestureText="Ctrl+A"/> 
+                    <MenuItem Header="Remove Piece" Command="{StaticResource RemovePieceCommand}" InputGestureText="Ctrl+Z"/>
+                </MenuItem>
+                <MenuItem Header="Tools">
+                    <MenuItem Header="Settings" Command="{StaticResource OpenSettingsCommand}" InputGestureText="Ctrl+S" />
+                </MenuItem>
+                <MenuItem Header="Help">
+                    <MenuItem Header="About" Command="{StaticResource OpenAboutCommand}" InputGestureText="Ctrl + D"/>
+                    <MenuItem Header="Documentation" Command="{StaticResource OpenSiteCommand}" InputGestureText="Ctrl + W"/>
+                </MenuItem>
+            </Menu>
+            <Grid DockPanel.Dock="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <Pelialue:UserControl1 x:Name="pelialue" Grid.Row="1"/>
+                <StackPanel Grid.Column="1">
+                    <Button Command="New">New Game</Button>
+                    <Button Command="{StaticResource AddPieceCommand}">Add Piece</Button>
+                    <Button Command="{StaticResource MovePieceCommand}">Move Piece</Button>
+                    <Button Command="{StaticResource RemovePieceCommand}">Remove Piece</Button>
+                    <Label x:Name="virhelabel" Foreground="Red" FontSize="15" FontFamily="Ariel" Height="40"/>
+                </StackPanel>
+            </Grid>
+        </DockPanel>
+        
+    </Grid>
+</Window>
